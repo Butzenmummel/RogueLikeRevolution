@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://whoo6xncpm2p"]
+
+[ext_resource type="Texture2D" uid="uid://dg3htjvqkqulv" path="res://assets/textures/player/Player.png" id="1_b2iwy"]
+
+[node name="Dev" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_b2iwy")
+region_enabled = true
+region_rect = Rect2(0, 0, 125.485, 79.495)
