@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://clp4hytrys7lm"]
+[gd_scene load_steps=4 format=3 uid="uid://clp4hytrys7lm"]
 
 [ext_resource type="PackedScene" uid="uid://b8kpis1v87woy" path="res://scenes/characters/player/player.tscn" id="1_hlyea"]
 [ext_resource type="PackedScene" uid="uid://bq0g6ijgwbr48" path="res://scenes/worlds/proto_world.tscn" id="1_jqj6l"]
+[ext_resource type="PackedScene" uid="uid://bhg0ld1xbb1g5" path="res://scenes/characters/enemy/spider_melee.tscn" id="3_snf5m"]
 
 [node name="Main" type="Node2D"]
 
@@ -9,3 +10,9 @@
 
 [node name="Player" parent="." instance=ExtResource("1_hlyea")]
 position = Vector2(995, -728)
+
+[node name="Mushroom" parent="." instance=ExtResource("3_snf5m")]
+position = Vector2(2376, -953)
+
+[node name="Mushroom2" parent="." instance=ExtResource("3_snf5m")]
+position = Vector2(186, -932)

@@ -44,12 +44,11 @@ collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 wall_min_slide_angle = 0.349066
-safe_margin = 0.5
+safe_margin = 2.0
 script = ExtResource("1_7q5l8")
 
 [node name="MovementCollider" type="CollisionShape2D" parent="."]
 position = Vector2(10.1657, -18)
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_igfgr")
 
 [node name="Shadow" type="Sprite2D" parent="."]
@@ -63,7 +62,7 @@ texture = ExtResource("4_bdn73")
 position = Vector2(16, -128)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_r1544")
-animation = &"idle_back"
+animation = &"idle_front"
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
 unique_name_in_owner = true

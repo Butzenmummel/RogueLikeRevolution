@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://bhg0ld1xbb1g5"]
+
+[ext_resource type="Texture2D" uid="uid://be4bx14jlmk7j" path="res://assets/textures/enemy/spider/spider_back.png" id="1_oh0hc"]
+[ext_resource type="Script" path="res://scripts/characters/enemy/Enemy.cs" id="1_q5ck5"]
+[ext_resource type="Texture2D" uid="uid://04j7gg6anrqa" path="res://assets/textures/enemy/spider/spider_front.png" id="2_mp2f1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0d8x"]
+radius = 52.9
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4k1i"]
+atlas = ExtResource("1_oh0hc")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6pad"]
+atlas = ExtResource("2_mp2f1")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u6u01"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4k1i")
+}],
+"loop": true,
+"name": &"idle_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6pad")
+}],
+"loop": true,
+"name": &"idle_front",
+"speed": 5.0
+}]
+
+[node name="Mushroom" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_q5ck5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, -45)
+shape = SubResource("CircleShape2D_h0d8x")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -64)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_u6u01")
+animation = &"idle_front"

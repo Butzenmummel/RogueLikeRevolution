@@ -36,7 +36,6 @@ public partial class PlayerController : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
-		Debug.Print($"Velocity: {Velocity}");
 	}
 
 	private void AnimatedPlayer()
