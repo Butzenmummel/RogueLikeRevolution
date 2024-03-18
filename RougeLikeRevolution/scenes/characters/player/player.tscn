@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b8kpis1v87woy"]
 
-[ext_resource type="Script" path="res://scripts/characters/player/PlayerController.cs" id="1_7q5l8"]
+[ext_resource type="Script" path="res://scripts/characters/player/Player.cs" id="1_0pn1l"]
 [ext_resource type="Texture2D" uid="uid://e0fpao5ipyk" path="res://assets/textures/player/cybergirl_front.png" id="2_2myvc"]
 [ext_resource type="Texture2D" uid="uid://5sofji0y5c3v" path="res://assets/textures/player/cybergirl_back.png" id="2_315so"]
 [ext_resource type="Texture2D" uid="uid://d3768tlasn7pl" path="res://assets/textures/unit_shadow.png" id="4_bdn73"]
@@ -39,13 +39,15 @@ animations = [{
 size = Vector2(49, 240.5)
 
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(0.49185, 0.5)
-collision_layer = 2
+scale = Vector2(0.5, 0.5)
+collision_layer = 16
 collision_mask = 3
-motion_mode = 1
+slide_on_ceiling = false
 wall_min_slide_angle = 0.349066
+floor_stop_on_slope = false
+platform_floor_layers = 3
 safe_margin = 2.0
-script = ExtResource("1_7q5l8")
+script = ExtResource("1_0pn1l")
 
 [node name="MovementCollider" type="CollisionShape2D" parent="."]
 position = Vector2(10.1657, -18)

@@ -61,5 +61,8 @@ zoom_out={
 
 2d_physics/layer_1="Static World"
 2d_physics/layer_2="Dynamic World"
+2d_physics/layer_5="Player Collider"
+2d_physics/layer_6="Enemy Collider"
+2d_physics/layer_7="NPC Collider"
 2d_physics/layer_9="Player Hitbox"
 2d_physics/layer_10="Enemy Hitbox"

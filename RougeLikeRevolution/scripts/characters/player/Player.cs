@@ -2,9 +2,12 @@ using Godot;
 using System;
 using System.Diagnostics;
 
-public partial class PlayerController : CharacterBody2D
+public partial class Player : CharacterBody2D
 {
 	public const float Speed = 300.0f;
+
+	public int CurrentHealth = 100;
+	public int MaxHealth = 100;
 
 	private AnimatedSprite2D _playerSprite;
 
@@ -16,7 +19,8 @@ public partial class PlayerController : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		MovePlayer();
-		AnimatedPlayer();
+		AnimatePlayer();
+		Modulate = new Color(1, 1, 1);
 	}
 
 	private void MovePlayer()
@@ -38,7 +42,7 @@ public partial class PlayerController : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	private void AnimatedPlayer()
+	private void AnimatePlayer()
 	{
 		if (Input.IsActionPressed("move_left"))
 		{
@@ -68,6 +72,18 @@ public partial class PlayerController : CharacterBody2D
 		else if (@event.IsActionPressed("zoom_out") && GetNode<Camera2D>("PlayerCamera").Zoom.X > 1f)
 		{
 			GetNode<Camera2D>("PlayerCamera").Zoom -= new Vector2(0.1f, 0.1f);
+		}
+	}
+
+	public void OnPlayerReceivedDamage(int damage)
+	{
+		CurrentHealth -= damage;
+		Debug.Print("Player Health: " + CurrentHealth);
+		if (CurrentHealth <= 0)
+		{
+			CurrentHealth = 0;
+			Modulate = new Color(1, 0, 0);
+			Debug.Print("Player is dead");
 		}
 	}
 }

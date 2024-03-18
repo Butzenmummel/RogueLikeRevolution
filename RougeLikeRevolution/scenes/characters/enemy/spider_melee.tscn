@@ -1,11 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhg0ld1xbb1g5"]
+[gd_scene load_steps=9 format=3 uid="uid://bhg0ld1xbb1g5"]
 
 [ext_resource type="Texture2D" uid="uid://be4bx14jlmk7j" path="res://assets/textures/enemy/spider/spider_back.png" id="1_oh0hc"]
 [ext_resource type="Script" path="res://scripts/characters/enemy/Enemy.cs" id="1_q5ck5"]
 [ext_resource type="Texture2D" uid="uid://04j7gg6anrqa" path="res://assets/textures/enemy/spider/spider_front.png" id="2_mp2f1"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_h0d8x"]
-radius = 52.9
+[sub_resource type="CircleShape2D" id="CircleShape2D_amjr3"]
+radius = 24.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s4k1i"]
 atlas = ExtResource("1_oh0hc")
@@ -34,17 +34,41 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_udooc"]
+radius = 32.0
+
 [node name="Mushroom" type="CharacterBody2D"]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 32
+collision_mask = 35
+motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.001
 script = ExtResource("1_q5ck5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2, -45)
-shape = SubResource("CircleShape2D_h0d8x")
+rotation = 1.5708
+shape = SubResource("CircleShape2D_amjr3")
 
-[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -64)
-scale = Vector2(0.5, 0.5)
+[node name="EnemySprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(4, -18)
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_u6u01")
 animation = &"idle_front"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="AttackRange" type="Area2D" parent="."]
+collision_layer = 512
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackRange"]
+shape = SubResource("CircleShape2D_udooc")
+debug_color = Color(1, 0, 0, 0.254902)
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]
+[connection signal="body_shape_entered" from="AttackRange" to="." method="OnAttackRangeBodyShapeEntered"]
+[connection signal="body_shape_exited" from="AttackRange" to="." method="OnAttackRangeBodyShapeExited"]
