@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhg0ld1xbb1g5"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qho6l"]
+
+[node name="Mushroom" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_qho6l")

@@ -6,14 +6,24 @@ public partial class PlayerController : CharacterBody2D
 {
 	public const float Speed = 300.0f;
 
+	private AnimatedSprite2D _playerSprite;
+
+	public override void _Ready()
+	{
+		_playerSprite = GetNode<AnimatedSprite2D>("PlayerSprite");
+	}
+
 	public override void _PhysicsProcess(double delta)
+	{
+		MovePlayer();
+		AnimatedPlayer();
+	}
+
+	private void MovePlayer()
 	{
 		Vector2 velocity = Velocity;
 
-		// Get the input direction and handle the movement/deceleration.
-		// As good practice, you should replace UI actions with custom gameplay actions.
 		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
-		Debug.Print($"Direction: {direction}");
 		if (direction != Vector2.Zero)
 		{
 			velocity = direction * Speed;
@@ -26,5 +36,39 @@ public partial class PlayerController : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+		Debug.Print($"Velocity: {Velocity}");
+	}
+
+	private void AnimatedPlayer()
+	{
+		if (Input.IsActionPressed("move_left"))
+		{
+			_playerSprite.FlipH = true;
+		}
+		else if (Input.IsActionPressed("move_right"))
+		{
+			_playerSprite.FlipH = false;
+		}
+
+		if (Input.IsActionPressed("move_up"))
+		{
+			_playerSprite.Animation = "idle_back";
+		}
+		else if (Input.IsActionPressed("move_down"))
+		{
+			_playerSprite.Animation = "idle_front";
+		}
+	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event.IsActionPressed("zoom_in") && GetNode<Camera2D>("PlayerCamera").Zoom.X < 2.0f)
+		{
+			GetNode<Camera2D>("PlayerCamera").Zoom += new Vector2(0.1f, 0.1f);
+		}
+		else if (@event.IsActionPressed("zoom_out") && GetNode<Camera2D>("PlayerCamera").Zoom.X > 1f)
+		{
+			GetNode<Camera2D>("PlayerCamera").Zoom -= new Vector2(0.1f, 0.1f);
+		}
 	}
 }

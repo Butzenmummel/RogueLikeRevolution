@@ -1,19 +1,78 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8kpis1v87woy"]
+[gd_scene load_steps=10 format=3 uid="uid://b8kpis1v87woy"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/PlayerController.cs" id="1_7q5l8"]
-[ext_resource type="Texture2D" uid="uid://dq4pd65itg35w" path="res://icon.svg" id="1_ggllp"]
+[ext_resource type="Texture2D" uid="uid://e0fpao5ipyk" path="res://assets/textures/player/cybergirl_front.png" id="2_2myvc"]
+[ext_resource type="Texture2D" uid="uid://5sofji0y5c3v" path="res://assets/textures/player/cybergirl_back.png" id="2_315so"]
+[ext_resource type="Texture2D" uid="uid://d3768tlasn7pl" path="res://assets/textures/unit_shadow.png" id="4_bdn73"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_a3c27"]
-radius = 70.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_igfgr"]
+radius = 45.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3mix"]
+atlas = ExtResource("2_315so")
+region = Rect2(0, 0, 256, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvxjw"]
+atlas = ExtResource("2_2myvc")
+region = Rect2(0, 0, 256, 512)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r1544"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3mix")
+}],
+"loop": true,
+"name": &"idle_back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvxjw")
+}],
+"loop": true,
+"name": &"idle_front",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8jylf"]
+size = Vector2(49, 240.5)
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.49185, 0.5)
+collision_layer = 2
+collision_mask = 3
 motion_mode = 1
+wall_min_slide_angle = 0.349066
+safe_margin = 0.5
 script = ExtResource("1_7q5l8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_a3c27")
+[node name="MovementCollider" type="CollisionShape2D" parent="."]
+position = Vector2(10.1657, -18)
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_igfgr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_ggllp")
+[node name="Shadow" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.541176)
+show_behind_parent = true
+position = Vector2(12.1988, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_bdn73")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(16, -128)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_r1544")
+animation = &"idle_back"
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Hitbox" type="StaticBody2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(9.5, -120.75)
+shape = SubResource("RectangleShape2D_8jylf")
+debug_color = Color(0.972549, 0, 0.454902, 0.0705882)

@@ -1,7 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://clp4hytrys7lm"]
+[gd_scene load_steps=3 format=3 uid="uid://clp4hytrys7lm"]
 
 [ext_resource type="PackedScene" uid="uid://b8kpis1v87woy" path="res://scenes/characters/player/player.tscn" id="1_hlyea"]
+[ext_resource type="PackedScene" uid="uid://bq0g6ijgwbr48" path="res://scenes/worlds/proto_world.tscn" id="1_jqj6l"]
 
 [node name="Main" type="Node2D"]
 
+[node name="ProtoWorld" parent="." instance=ExtResource("1_jqj6l")]
+
 [node name="Player" parent="." instance=ExtResource("1_hlyea")]
+position = Vector2(995, -728)
