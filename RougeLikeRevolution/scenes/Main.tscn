@@ -1,18 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://clp4hytrys7lm"]
+[gd_scene load_steps=5 format=3 uid="uid://clp4hytrys7lm"]
 
 [ext_resource type="PackedScene" uid="uid://b8kpis1v87woy" path="res://scenes/characters/player/player.tscn" id="1_hlyea"]
+[ext_resource type="Script" path="res://scripts/managers/ProjectilesManager.cs" id="1_hv5qg"]
 [ext_resource type="PackedScene" uid="uid://bq0g6ijgwbr48" path="res://scenes/worlds/proto_world.tscn" id="1_jqj6l"]
-[ext_resource type="PackedScene" uid="uid://bhg0ld1xbb1g5" path="res://scenes/characters/enemy/spider_melee.tscn" id="3_snf5m"]
+[ext_resource type="PackedScene" uid="uid://bmu18c50qhrk0" path="res://scenes/characters/enemy/target_dummy.tscn" id="3_ulcxv"]
 
 [node name="Main" type="Node2D"]
 
+[node name="Managers" type="Node2D" parent="."]
+
+[node name="ProjectilesManager" type="Node2D" parent="Managers"]
+script = ExtResource("1_hv5qg")
+
 [node name="ProtoWorld" parent="." instance=ExtResource("1_jqj6l")]
+z_index = -100
 
 [node name="Player" parent="." instance=ExtResource("1_hlyea")]
+unique_name_in_owner = true
 position = Vector2(995, -728)
 
-[node name="Mushroom" parent="." instance=ExtResource("3_snf5m")]
-position = Vector2(2376, -953)
+[node name="TargetDummy" parent="." instance=ExtResource("3_ulcxv")]
+position = Vector2(2215, -432)
 
-[node name="Mushroom2" parent="." instance=ExtResource("3_snf5m")]
-position = Vector2(186, -932)
+[node name="TargetDummy2" parent="." instance=ExtResource("3_ulcxv")]
+position = Vector2(2260, -613)
+
+[node name="TargetDummy3" parent="." instance=ExtResource("3_ulcxv")]
+position = Vector2(2025, -346)
+
+[node name="TargetDummy4" parent="." instance=ExtResource("3_ulcxv")]
+position = Vector2(2449, -301)
+
+[node name="TargetDummy5" parent="." instance=ExtResource("3_ulcxv")]
+position = Vector2(2449, -539)
+
+[node name="TargetDummy6" parent="." instance=ExtResource("3_ulcxv")]
+position = Vector2(2447, -734)

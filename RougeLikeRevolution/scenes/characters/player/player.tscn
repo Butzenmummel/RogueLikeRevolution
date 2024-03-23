@@ -1,12 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://b8kpis1v87woy"]
+[gd_scene load_steps=22 format=3 uid="uid://b8kpis1v87woy"]
 
 [ext_resource type="Script" path="res://scripts/characters/player/Player.cs" id="1_0pn1l"]
 [ext_resource type="Texture2D" uid="uid://e0fpao5ipyk" path="res://assets/textures/player/cybergirl_front.png" id="2_2myvc"]
 [ext_resource type="Texture2D" uid="uid://5sofji0y5c3v" path="res://assets/textures/player/cybergirl_back.png" id="2_315so"]
 [ext_resource type="Texture2D" uid="uid://d3768tlasn7pl" path="res://assets/textures/unit_shadow.png" id="4_bdn73"]
+[ext_resource type="Script" path="res://scenes/characters/player/PlayerAnimation.cs" id="5_5lksk"]
+[ext_resource type="Texture2D" uid="uid://cjwbigyuenwir" path="res://assets/textures/player/playerAtlas.png" id="5_yqdes"]
+[ext_resource type="Texture2D" uid="uid://beh7ttigqad68" path="res://assets/textures/player/hand.png" id="7_7dr3i"]
+[ext_resource type="Texture2D" uid="uid://bdj3ghkius4cw" path="res://assets/textures/items/weapons/weaponAtlas.png" id="8_ckhd3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_igfgr"]
-radius = 45.0
+radius = 85.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j3mix"]
 atlas = ExtResource("2_315so")
@@ -38,8 +42,41 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8jylf"]
 size = Vector2(49, 240.5)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xe0r"]
+atlas = ExtResource("5_yqdes")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sggs7"]
+atlas = ExtResource("5_yqdes")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58n0d"]
+atlas = ExtResource("5_yqdes")
+region = Rect2(0, 0, 256, 256)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_si6td"]
+atlas = ExtResource("5_yqdes")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8xjrb"]
+atlas = ExtResource("5_yqdes")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mmhoy"]
+atlas = ExtResource("8_ckhd3")
+region = Rect2(0, 0, 256, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ierct"]
+atlas = ExtResource("8_ckhd3")
+region = Rect2(256, 0, 256, 512)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgnin"]
+atlas = ExtResource("5_yqdes")
+region = Rect2(0, 256, 256, 256)
+
 [node name="Player" type="CharacterBody2D"]
-scale = Vector2(0.5, 0.5)
+scale = Vector2(0.25, 0.25)
 collision_layer = 16
 collision_mask = 3
 slide_on_ceiling = false
@@ -50,17 +87,18 @@ safe_margin = 2.0
 script = ExtResource("1_0pn1l")
 
 [node name="MovementCollider" type="CollisionShape2D" parent="."]
-position = Vector2(10.1657, -18)
+position = Vector2(-6, -24)
 shape = SubResource("CircleShape2D_igfgr")
 
 [node name="Shadow" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.541176)
 show_behind_parent = true
-position = Vector2(12.1988, 0)
-scale = Vector2(0.4, 0.4)
+position = Vector2(-4, 0)
+scale = Vector2(0.735, 0.735)
 texture = ExtResource("4_bdn73")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+visible = false
 position = Vector2(16, -128)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_r1544")
@@ -70,6 +108,7 @@ animation = &"idle_front"
 unique_name_in_owner = true
 
 [node name="Hitbox" type="StaticBody2D" parent="."]
+visible = false
 collision_layer = 256
 collision_mask = 0
 
@@ -77,3 +116,91 @@ collision_mask = 0
 position = Vector2(9.5, -120.75)
 shape = SubResource("RectangleShape2D_8jylf")
 debug_color = Color(0.972549, 0, 0.454902, 0.0705882)
+
+[node name="Skeleton" type="Node2D" parent="."]
+z_index = 150
+y_sort_enabled = true
+position = Vector2(-8, -176)
+script = ExtResource("5_5lksk")
+
+[node name="ConnectedBody" type="Node2D" parent="Skeleton"]
+
+[node name="Head" type="Node2D" parent="Skeleton/ConnectedBody"]
+z_index = 1
+
+[node name="Hair" type="Sprite2D" parent="Skeleton/ConnectedBody/Head"]
+z_index = 3
+position = Vector2(0, -76)
+texture = SubResource("AtlasTexture_1xe0r")
+
+[node name="Face" type="Sprite2D" parent="Skeleton/ConnectedBody/Head"]
+z_index = 2
+position = Vector2(12, -44)
+texture = SubResource("AtlasTexture_sggs7")
+
+[node name="Head" type="Sprite2D" parent="Skeleton/ConnectedBody/Head"]
+z_index = 1
+position = Vector2(2, -70)
+texture = SubResource("AtlasTexture_58n0d")
+
+[node name="Body" type="Node2D" parent="Skeleton/ConnectedBody"]
+
+[node name="BodyBackground" type="Sprite2D" parent="Skeleton/ConnectedBody/Body"]
+z_index = -10
+position = Vector2(0, 76)
+texture = SubResource("AtlasTexture_si6td")
+
+[node name="BodyForground" type="Sprite2D" parent="Skeleton/ConnectedBody/Body"]
+position = Vector2(4, 76)
+texture = SubResource("AtlasTexture_8xjrb")
+
+[node name="Hands" type="Node2D" parent="Skeleton"]
+position = Vector2(8, 72)
+rotation = 1.5708
+
+[node name="HandRight" type="Sprite2D" parent="Skeleton/Hands"]
+z_index = 1
+position = Vector2(4.37114e-08, 76)
+texture = ExtResource("7_7dr3i")
+
+[node name="WeaponSlot" type="Node2D" parent="Skeleton/Hands/HandRight"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton/Hands/HandRight/WeaponSlot"]
+z_index = -1
+position = Vector2(72, 0.999997)
+rotation = 1.5708
+scale = Vector2(0.55, 0.55)
+texture = SubResource("AtlasTexture_mmhoy")
+
+[node name="HandLeft" type="Sprite2D" parent="Skeleton/Hands"]
+z_index = -1
+position = Vector2(0, -75)
+texture = ExtResource("7_7dr3i")
+
+[node name="WeaponSlot" type="Node2D" parent="Skeleton/Hands/HandLeft"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Skeleton/Hands/HandLeft/WeaponSlot"]
+z_index = -1
+position = Vector2(60, -17)
+rotation = 1.5708
+scale = Vector2(0.4, 0.4)
+texture = SubResource("AtlasTexture_ierct")
+
+[node name="Feet" type="Node2D" parent="Skeleton"]
+position = Vector2(8, 124)
+
+[node name="AnkleLeft" type="Node2D" parent="Skeleton/Feet"]
+position = Vector2(20, 0)
+
+[node name="FootLeft" type="Sprite2D" parent="Skeleton/Feet/AnkleLeft"]
+z_index = -1
+position = Vector2(16, 36)
+texture = SubResource("AtlasTexture_vgnin")
+
+[node name="AnkleRight" type="Node2D" parent="Skeleton/Feet"]
+position = Vector2(-20, 0)
+
+[node name="FootRight" type="Sprite2D" parent="Skeleton/Feet/AnkleRight"]
+z_index = -1
+position = Vector2(16, 36)
+texture = SubResource("AtlasTexture_vgnin")

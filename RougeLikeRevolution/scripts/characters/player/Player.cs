@@ -4,22 +4,21 @@ using System.Diagnostics;
 
 public partial class Player : CharacterBody2D
 {
+	[Signal] public delegate void PlayerAttackEventHandler(Vector2 spawnPosition, Vector2 direction);
+
 	public const float Speed = 300.0f;
 
 	public int CurrentHealth = 100;
 	public int MaxHealth = 100;
 
-	private AnimatedSprite2D _playerSprite;
-
 	public override void _Ready()
 	{
-		_playerSprite = GetNode<AnimatedSprite2D>("PlayerSprite");
+		Connect(nameof(PlayerAttack), new Callable(GetNode<ProjectilesManager>("/root/Main/Managers/ProjectilesManager"), "SpawnProjectile"));
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		MovePlayer();
-		AnimatePlayer();
 		Modulate = new Color(1, 1, 1);
 	}
 
@@ -42,30 +41,14 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 	}
 
-	private void AnimatePlayer()
-	{
-		if (Input.IsActionPressed("move_left"))
-		{
-			_playerSprite.FlipH = true;
-		}
-		else if (Input.IsActionPressed("move_right"))
-		{
-			_playerSprite.FlipH = false;
-		}
-
-		if (Input.IsActionPressed("move_up"))
-		{
-			_playerSprite.Animation = "idle_back";
-		}
-		else if (Input.IsActionPressed("move_down"))
-		{
-			_playerSprite.Animation = "idle_front";
-		}
-	}
-
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (@event.IsActionPressed("zoom_in") && GetNode<Camera2D>("PlayerCamera").Zoom.X < 2.0f)
+		if (@event.IsActionPressed("attack"))
+		{
+			var targetPosition = GetGlobalMousePosition();
+			EmitSignal(nameof(PlayerAttack), GlobalPosition, targetPosition - GlobalPosition);
+		}
+		else if (@event.IsActionPressed("zoom_in") && GetNode<Camera2D>("PlayerCamera").Zoom.X < 2.0f)
 		{
 			GetNode<Camera2D>("PlayerCamera").Zoom += new Vector2(0.1f, 0.1f);
 		}

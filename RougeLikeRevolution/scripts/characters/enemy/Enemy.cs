@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 public partial class Enemy : CharacterBody2D
 {
-	[Signal] public delegate void AttackEventHandler();
+	[Signal] public delegate void PlayerShootEventHandler();
 
 	public const float Speed = 150.0f;
 
@@ -39,7 +39,8 @@ public partial class Enemy : CharacterBody2D
 		if (body.GetParent() is Player)
 		{
 			Debug.Print("Player is in attack range");
-			EmitSignal(nameof(Attack), new Callable(_player, "OnPlayerReceivedDamage"), 10);
+			var mousePosition = GetGlobalMousePosition();
+			EmitSignal(nameof(PlayerShoot), mousePosition);
 		}
 	}
 
