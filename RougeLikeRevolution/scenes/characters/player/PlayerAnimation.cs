@@ -8,6 +8,13 @@ public partial class PlayerAnimation : Node2D
 	private Node2D _hands;
 	private Node2D _feet;
 
+	private FootState _currentFootState = FootState.Forward;
+	private enum FootState
+	{
+		Forward,
+		Backward
+	}
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -76,20 +83,33 @@ public partial class PlayerAnimation : Node2D
 	{
 		var ankleLeft = _feet.GetNode<Node2D>("AnkleLeft");
 		var ankleRight = _feet.GetNode<Node2D>("AnkleRight");
+		int rotationSpeed = 10;
 
-		if (ankleLeft.RotationDegrees > 30)
+		switch (_currentFootState)
 		{
-			ankleLeft.Rotate(Mathf.DegToRad(-360 * delta));
-			ankleRight.Rotate(Mathf.DegToRad(360 * delta));
-			return;
+			case FootState.Forward:
+				if (ankleLeft.RotationDegrees < 30)
+				{
+					ankleLeft.Rotate(delta * rotationSpeed);
+					ankleRight.Rotate(-delta * rotationSpeed);
+				}
+				else
+				{
+					_currentFootState = FootState.Backward;
+				}
+				break;
+			case FootState.Backward:
+				if (ankleLeft.RotationDegrees > -30)
+				{
+					ankleLeft.Rotate(-delta * rotationSpeed);
+					ankleRight.Rotate(delta * rotationSpeed);
+				}
+				else
+				{
+					_currentFootState = FootState.Forward;
+				}
+				break;
 		}
-		else if (ankleLeft.RotationDegrees < -30)
-		{
-			ankleLeft.Rotate(Mathf.DegToRad(360 * delta));
-			ankleRight.Rotate(Mathf.DegToRad(-360 * delta));
-			return;
-		}
-		ankleLeft.Rotate(Mathf.DegToRad(360 * delta));
-		ankleRight.Rotate(Mathf.DegToRad(-360 * delta));
 	}
+
 }
