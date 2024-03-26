@@ -1,0 +1,24 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bwn8angsjge6c"]
+
+[ext_resource type="FontFile" uid="uid://816s3ko2r4p4" path="res://assets/font/Microsoft YaHei.ttf" id="1_2rywu"]
+[ext_resource type="Texture2D" uid="uid://s5n6fppvebu4" path="res://assets/textures/interface/UI_HPBar.png" id="2_4vhql"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t2mtm"]
+bg_color = Color(0.203922, 0.203922, 0.203922, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rji1w"]
+texture = ExtResource("2_4vhql")
+modulate_color = Color(1, 0, 0, 1)
+
+[resource]
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/outline_size = 2
+Label/font_sizes/font_size = 15
+Label/fonts/font = ExtResource("1_2rywu")
+MarginContainer/constants/margin_bottom = 25
+MarginContainer/constants/margin_left = 50
+MarginContainer/constants/margin_right = 25
+MarginContainer/constants/margin_top = 25
+ProgressBar/fonts/font = ExtResource("1_2rywu")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_t2mtm")
+ProgressBar/styles/fill = SubResource("StyleBoxTexture_rji1w")

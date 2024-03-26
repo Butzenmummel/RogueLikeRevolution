@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://clp4hytrys7lm"]
+[gd_scene load_steps=8 format=3 uid="uid://clp4hytrys7lm"]
 
 [ext_resource type="PackedScene" uid="uid://b8kpis1v87woy" path="res://scenes/characters/player/player.tscn" id="1_hlyea"]
 [ext_resource type="Script" path="res://scripts/managers/ProjectilesManager.cs" id="1_hv5qg"]
 [ext_resource type="PackedScene" uid="uid://bq0g6ijgwbr48" path="res://scenes/worlds/proto_world.tscn" id="1_jqj6l"]
+[ext_resource type="Script" path="res://addons/godot-console/scripts/console_container.gd" id="2_04dqb"]
+[ext_resource type="PackedScene" uid="uid://csl4x38en5xgx" path="res://scenes/user_interface/hud.tscn" id="2_4qi3q"]
+[ext_resource type="Script" path="res://scripts/managers/InputManager.cs" id="2_mvdca"]
 [ext_resource type="PackedScene" uid="uid://bmu18c50qhrk0" path="res://scenes/characters/enemy/target_dummy.tscn" id="3_ulcxv"]
 
 [node name="Main" type="Node2D"]
@@ -11,6 +14,9 @@
 
 [node name="ProjectilesManager" type="Node2D" parent="Managers"]
 script = ExtResource("1_hv5qg")
+
+[node name="Node" type="Node" parent="Managers"]
+script = ExtResource("2_mvdca")
 
 [node name="ProtoWorld" parent="." instance=ExtResource("1_jqj6l")]
 z_index = -100
@@ -36,3 +42,18 @@ position = Vector2(2449, -539)
 
 [node name="TargetDummy6" parent="." instance=ExtResource("3_ulcxv")]
 position = Vector2(2447, -734)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hud" parent="CanvasLayer" instance=ExtResource("2_4qi3q")]
+mouse_filter = 2
+
+[node name="ConsoleContainer" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 672.0
+offset_bottom = 236.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+script = ExtResource("2_04dqb")

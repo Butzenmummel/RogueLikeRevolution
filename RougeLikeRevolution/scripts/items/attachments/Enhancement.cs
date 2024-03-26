@@ -1,6 +1,6 @@
 using Scripts.Enums;
 
-namespace Scipts.Attachments;
+namespace Scripts.Attachments;
 
 public partial class Enhancement : AttachmentBase
 {

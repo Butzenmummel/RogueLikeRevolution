@@ -1,7 +1,7 @@
 using Godot;
 using Scripts.Enums;
 
-namespace Scenes.Attachments;
+namespace Scripts.Attachments;
 
 public partial class Ultimate : AttachmentBase
 {

@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://csl4x38en5xgx"]
+
+[ext_resource type="Theme" uid="uid://bwn8angsjge6c" path="res://assets/theme/hud.tres" id="1_n4q1h"]
+[ext_resource type="PackedScene" uid="uid://chr5anu5y4c0m" path="res://scenes/user_interface/partials/player_stats.tscn" id="2_ix6lv"]
+[ext_resource type="PackedScene" uid="uid://mdwxjfjyix8g" path="res://scenes/user_interface/partials/inventory.tscn" id="3_o5tig"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_n4q1h")
+
+[node name="PlayerStats" parent="MarginContainer" instance=ExtResource("2_ix6lv")]
+layout_mode = 2
+
+[node name="Inventory" parent="MarginContainer" instance=ExtResource("3_o5tig")]
+layout_mode = 2

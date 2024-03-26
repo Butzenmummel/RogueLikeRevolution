@@ -1,15 +1,12 @@
 using Godot;
-using System;
+using Scripts.Characters.Player;
 using System.Diagnostics;
 
 public partial class Player : CharacterBody2D
 {
 	[Signal] public delegate void PlayerAttackEventHandler(Vector2 spawnPosition, Vector2 direction);
 
-	public const float Speed = 300.0f;
-
-	public int CurrentHealth = 100;
-	public int MaxHealth = 100;
+	private PlayerVariables PlayerVariables => GetNode<PlayerVariables>("/root/PlayerVariables");
 
 	public override void _Ready()
 	{
@@ -29,12 +26,12 @@ public partial class Player : CharacterBody2D
 		Vector2 direction = Input.GetVector("move_left", "move_right", "move_up", "move_down");
 		if (direction != Vector2.Zero)
 		{
-			velocity = direction * Speed;
+			velocity = direction * PlayerVariables.Speed;
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, PlayerVariables.Speed);
+			velocity.Y = Mathf.MoveToward(Velocity.Y, 0, PlayerVariables.Speed);
 		}
 
 		Velocity = velocity;
@@ -60,11 +57,11 @@ public partial class Player : CharacterBody2D
 
 	public void OnPlayerReceivedDamage(int damage)
 	{
-		CurrentHealth -= damage;
-		Debug.Print("Player Health: " + CurrentHealth);
-		if (CurrentHealth <= 0)
+		PlayerVariables.ChangeCurrentHealth(-damage);
+		Debug.Print("Player Health: " + PlayerVariables.CurrentHealth);
+		if (PlayerVariables.CurrentHealth <= 0)
 		{
-			CurrentHealth = 0;
+			PlayerVariables.CurrentHealth = 0;
 			Modulate = new Color(1, 0, 0);
 			Debug.Print("Player is dead");
 		}

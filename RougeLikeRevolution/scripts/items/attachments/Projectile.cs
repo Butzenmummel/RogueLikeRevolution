@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Godot;
 using Scripts.Enums;
 
-namespace Scipts.Attachments;
+namespace Scripts.Attachments;
 
 public partial class Projectile : AttachmentBase
 {

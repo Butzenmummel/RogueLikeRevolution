@@ -1,6 +1,6 @@
 using Godot;
 using Godot.Collections;
-using Scipts.Attachments;
+using Scripts.Attachments;
 using Scripts.Enums;
 
 public partial class Weapon : Node2D
